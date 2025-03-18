@@ -1,0 +1,639 @@
+© 2025 MKM Research Labs. All rights reserved.
+This document is proprietary and confidential.
+Unauthorized use, reproduction or distribution is prohibited.
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKM Research Labs</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen relative">
+    <!-- Background image with overlay -->
+    <div class="fixed inset-0 z-0">
+        <img src="{{ url_for('static', filename='w10m_000_001.png') }}" class="w-full h-full object-cover" alt="background">
+        <div class="absolute inset-0 bg-white bg-opacity-60"></div>
+    </div>
+    <div class="flex h-screen relative z-10">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-64 bg-white bg-opacity-70 shadow-lg p-4 overflow-y-auto">
+            <div class="mb-4 flex justify-between items-center">
+                <div class="flex space-x-2">
+                    <!-- Tab buttons for switching between Chat History and Document Summaries -->
+                    <button id="chat-history-tab" class="px-3 py-1 bg-blue-500 text-white rounded-lg">Chats</button>
+                    <button id="document-summaries-tab" class="px-3 py-1 bg-gray-300 rounded-lg">Docs</button>
+                </div>
+                <button id="toggle-sidebar" class="text-gray-500 hover:text-gray-700">
+                    ←
+                </button>
+            </div>
+            
+            <!-- Chat History Panel -->
+            <div id="chat-history-panel" class="space-y-2">
+                <div class="mb-2">
+                    <input type="text" id="chat-search" placeholder="Search chats..." 
+                           class="w-full p-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+            </div>
+            
+            <!-- Document Summaries Panel (initially hidden) -->
+            <div id="document-summaries-panel" class="space-y-2 hidden">
+                <div class="mb-2">
+                    <input type="text" id="doc-search" placeholder="Search docs..." 
+                           class="w-full p-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                <!-- Document list will be populated here -->
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col">
+            <div class="container mx-auto px-4 py-4 flex-1 flex flex-col"> <!-- Reduced padding -->
+                <div class="max-w-5xl mx-auto w-full flex-1 flex flex-col"> <!-- Increased max-width and added flex -->
+                    <div class="flex justify-between items-center mb-4"> <!-- Reduced margin -->
+                        <h1 class="text-3xl font-bold" style="font-family: Palatino, 'Palatino Linotype', 'Palatino LT STD', 'Book Antiqua', Georgia, serif;">
+                            MKM Research Labs
+                        </h1>
+                        <button id="new-chat" 
+                                class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                            New Chat
+                        </button>
+                    </div>
+                    
+                    <div id="chat-container" class="bg-white bg-opacity-90 rounded-lg shadow-lg p-6 mb-4 flex-1 overflow-y-auto">
+                        <!-- Chat messages will appear here -->
+                    </div>
+
+                    <form id="query-form" class="flex flex-col gap-4 mb-4"> <!-- Added margin-bottom -->
+                        <div class="flex gap-4">
+                            <input type="text" id="query-input" 
+                                   class="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                   placeholder="Ask MKM ...">
+                                   <select id="model-select" 
+                                            class="bg-white border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                        <option value="claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+                                        <option value="mistral-7b-instruct-v0.2">Mistral 7B</option>
+                                        <option value="Deepseek-Ri1-Sistill-Llama-8B-Q3_k_k">Deepseek Llama 8B</option>
+                                        <option value="DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M">Deepseek Qwen 1.5B</option>
+                                        <option value="sonar">Perplexity Sonar</option>
+                                        <option value="sonar-pro">Perplexity Sonar Pro</option>
+                                        <option value="sonar-reasoning">Perplexity Sonar Reasoning</option>
+                                        <option value="sonar-reasoning-pro">Perplexity Sonar Reasoning Pro</option>
+                                        <option value="claude-3-opus">Claude 3 Opus</option>
+                                    </select>
+                            <button type="submit" 
+                                    class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                                Send
+                            </button>
+                        </div>
+                    </form>
+                    <div class="text-center text-sm text-gray-600 pb-2">
+                        © 2025 MKM Research Labs. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary modal -->
+    <div id="summary-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-4xl max-h-screen flex flex-col">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 id="modal-title" class="text-xl font-bold">Document Summary</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+            </div>
+            <div id="modal-content" class="p-6 overflow-y-auto flex-1 whitespace-pre-wrap">
+                <!-- Summary content goes here -->
+            </div>
+            <div class="p-4 border-t flex justify-end">
+                <button id="copy-summary" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mr-2">Copy</button>
+                <button id="use-summary" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Use in Chat</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification toast -->
+    <div id="notification" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-full transition-transform duration-300">
+        Chat saved successfully!
+    </div>
+
+    <script>
+        const form = document.getElementById('query-form');
+        const input = document.getElementById('query-input');
+        const chatContainer = document.getElementById('chat-container');
+        const newChatButton = document.getElementById('new-chat');
+        const notification = document.getElementById('notification');
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebar = document.getElementById('toggle-sidebar');
+        const chatHistoryPanel = document.getElementById('chat-history-panel');
+        const documentSummariesPanel = document.getElementById('document-summaries-panel');
+        const chatHistoryTab = document.getElementById('chat-history-tab');
+        const documentSummariesTab = document.getElementById('document-summaries-tab');
+        const docSearch = document.getElementById('doc-search');
+        const modelSelect = document.getElementById('model-select');
+        const summaryModal = document.getElementById('summary-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const closeModal = document.getElementById('close-modal');
+        const copySummary = document.getElementById('copy-summary');
+        const useSummary = document.getElementById('use-summary');
+        const chatSearch = document.getElementById('chat-search');
+
+        // Store chat messages
+        let chatMessages = [];
+        let currentChatId = null;
+        let documentSummaries = {};
+        let currentDocument = null;
+
+        // Tab switching functionality
+        chatHistoryTab.addEventListener('click', () => {
+            chatHistoryTab.classList.add('bg-blue-500', 'text-white');
+            chatHistoryTab.classList.remove('bg-gray-300');
+            documentSummariesTab.classList.add('bg-gray-300');
+            documentSummariesTab.classList.remove('bg-blue-500', 'text-white');
+            chatHistoryPanel.classList.remove('hidden');
+            documentSummariesPanel.classList.add('hidden');
+        });
+
+        documentSummariesTab.addEventListener('click', () => {
+            documentSummariesTab.classList.add('bg-blue-500', 'text-white');
+            documentSummariesTab.classList.remove('bg-gray-300');
+            chatHistoryTab.classList.add('bg-gray-300');
+            chatHistoryTab.classList.remove('bg-blue-500', 'text-white');
+            documentSummariesPanel.classList.remove('hidden');
+            chatHistoryPanel.classList.add('hidden');
+            loadDocumentSummaries();
+        });
+
+        // Document search functionality
+        docSearch.addEventListener('input', filterDocuments);
+
+        function filterDocuments() {
+            const searchTerm = docSearch.value.toLowerCase();
+            const documentElements = documentSummariesPanel.querySelectorAll('.document-item');
+            
+            documentElements.forEach(element => {
+                const docName = element.getAttribute('data-name').toLowerCase();
+                if (docName.includes(searchTerm)) {
+                    element.classList.remove('hidden');
+                } else {
+                    element.classList.add('hidden');
+                }
+            });
+        }
+
+        // Modal functionality
+        closeModal.addEventListener('click', () => {
+            summaryModal.classList.add('hidden');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === summaryModal) {
+                summaryModal.classList.add('hidden');
+            }
+        });
+
+        copySummary.addEventListener('click', () => {
+            const summaryText = modalContent.textContent;
+            navigator.clipboard.writeText(summaryText)
+                .then(() => showNotification('Summary copied to clipboard!'))
+                .catch(err => showNotification('Failed to copy summary'));
+        });
+
+        useSummary.addEventListener('click', () => {
+            if (currentDocument) {
+                const summaryText = modalContent.textContent;
+                input.value = `Tell me more about ${currentDocument} based on this summary: ${summaryText.substring(0, 200)}...`;
+                summaryModal.classList.add('hidden');
+                input.focus();
+            }
+        });
+
+        // Load document summaries from the JSON file
+        async function loadDocumentSummaries() {
+            try {
+                const response = await fetch('/get_summarised_files');
+                const data = await response.json();
+                
+                documentSummaries = data;
+                // Save the current search term
+                const searchTerm = docSearch.value;
+                
+                // Clear existing documents while preserving the search input
+                const searchContainer = docSearch.parentElement;
+                documentSummariesPanel.innerHTML = ''; // Clear everything
+                documentSummariesPanel.appendChild(searchContainer); // Add back the search container
+                
+                // Add documents to the panel
+                const documentNames = Object.keys(documentSummaries).sort();
+                
+                documentNames.forEach(docName => {
+                    const docInfo = documentSummaries[docName];
+                    const docElement = document.createElement('div');
+                    docElement.className = 'document-item p-2 hover:bg-gray-100 rounded cursor-pointer';
+                    docElement.setAttribute('data-name', docName);
+                    
+                    // Check summary type for icon
+                    const summaryType = docInfo.summary_type || 'FULL';
+                    const iconClass = summaryType === 'FULL' ? 'text-green-500' : 'text-yellow-500';
+                    const iconSymbol = summaryType === 'FULL' ? '✓' : '⚠';
+                    
+                    docElement.innerHTML = `
+                        <div class="flex items-center">
+                            <span class="${iconClass} mr-2">${iconSymbol}</span>
+                            <div class="flex-1">
+                                <div class="font-medium text-sm truncate">${docName}</div>
+                                <div class="text-xs text-gray-500">
+                                    ${new Date(docInfo.summarised_date).toLocaleDateString()}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    // Re-apply search filter if there was a search term
+                    if (searchTerm) {
+                        docSearch.value = searchTerm;
+                        filterDocuments();
+                    }
+
+                    docElement.addEventListener('click', () => showDocumentSummary(docName));
+                    documentSummariesPanel.appendChild(docElement);
+                });
+                
+            } catch (error) {
+                console.error('Failed to load document summaries:', error);
+                showNotification('Failed to load document summaries');
+            }
+        }
+
+
+
+        function showDocumentSummary(docName) {
+            const docInfo = documentSummaries[docName];
+            if (!docInfo || !docInfo.summary) {
+                showNotification('No summary available for this document');
+                return;
+            }
+            
+            currentDocument = docName;
+            modalTitle.textContent = docName;
+            modalContent.textContent = docInfo.summary;
+            summaryModal.classList.remove('hidden');
+        }
+
+        // Copy to clipboard function
+        async function copyToClipboard(text, messageIndex) {
+            try {
+                // Find the next sources message after this message
+                let sourcesText = '';
+                for (let i = messageIndex + 1; i < chatMessages.length; i++) {
+                    if (chatMessages[i].role === 'sources') {
+                        sourcesText = '\n\n' + chatMessages[i].content;
+                        break;
+                    }
+                }
+                
+                // Combine message content with sources
+                const fullText = text + sourcesText;
+                
+                await navigator.clipboard.writeText(fullText);
+                showNotification('Copied message with sources to clipboard!');
+            } catch (err) {
+                showNotification('Failed to copy text');
+                console.error('Copy failed:', err);
+            }
+        }
+
+        function createMessageDiv(role, content, messageIndex) {
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = 'relative mb-4';
+        
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `p-3 rounded-lg whitespace-pre-wrap ${
+                role === 'user' ? 'bg-blue-100 ml-12' : 
+                role === 'error' ? 'bg-red-100' : 'bg-gray-100 mr-12'
+            }`;
+        
+            // Format the content with proper line breaks and spacing
+            if (role === 'assistant') {
+                // Replace double line breaks with paragraph breaks
+                const formattedContent = content
+                    .replace(/\n\n+/g, '\n\n')  // Normalize multiple line breaks to double line breaks
+                    .trim();  // Remove leading/trailing whitespace
+                
+                messageDiv.textContent = formattedContent;
+            } else {
+                messageDiv.textContent = content;
+            }
+        
+            // Only add copy button for assistant messages
+            if (role === 'assistant') {
+                const copyButton = document.createElement('button');
+                copyButton.className = 'absolute bottom-2 right-2 bg-blue-500 text-white px-2 py-1 rounded text-sm hover:bg-blue-600 transition-colors';
+                copyButton.textContent = 'Copy';
+                copyButton.onclick = (e) => {
+                    e.preventDefault();
+                    copyToClipboard(content, messageIndex);
+                };
+                messageWrapper.appendChild(copyButton);
+            }
+        
+            messageWrapper.appendChild(messageDiv);
+            return messageWrapper;
+        }
+        
+        function formatStructuredText(text) {
+            // Split the text into paragraphs
+            let paragraphs = text.split(/\n\n/);
+            
+            return paragraphs.map(paragraph => {
+                // Handle section headers (numbered points)
+                if (/^\d+\./.test(paragraph)) {
+                    const parts = paragraph.split(/(?=\s-\s)/);
+                    const header = parts[0];
+                    const points = parts.slice(1);
+                    
+                    return `
+                        <div class="mb-3">
+                            <span class="text-gray-800">${header}</span>
+                            ${points.map(point => `
+                                <div class="ml-4 mt-1">•${point.replace(/^-/, '')}</div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    // Regular paragraph
+                    return `<div class="mb-2">${paragraph}</div>`;
+                }
+            }).join('');
+        }
+
+        // Modified appendMessageWithoutSave function
+        function appendMessageWithoutSave(role, content) {
+            const messageIndex = chatMessages.length;
+            const messageWrapper = createMessageDiv(role, content, messageIndex);
+            chatContainer.appendChild(messageWrapper);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            chatMessages.push({ role, content });
+        }
+
+        // Rest of the JavaScript code remains the same
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        const autoSaveChat = debounce(async () => {
+            if (chatMessages.length === 0) return;
+
+            try {
+                const response = await fetch('/save_chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        chat: {
+                            timestamp: new Date().toISOString(),
+                            messages: chatMessages
+                        }
+                    }),
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    showNotification('Error saving chat: ' + data.error);
+                } else {
+                    showNotification('Chat saved successfully!');
+                    loadChatHistory();
+                }
+            } catch (error) {
+                showNotification('Failed to save chat: ' + error.message);
+            }
+        }, 1000);
+
+        toggleSidebar.addEventListener('click', () => {
+            if (sidebar.classList.contains('w-64')) {
+                sidebar.classList.remove('w-64');
+                sidebar.classList.add('w-0');
+                toggleSidebar.textContent = '→';
+            } else {
+                sidebar.classList.remove('w-0');
+                sidebar.classList.add('w-64');
+                toggleSidebar.textContent = '←';
+            }
+        });
+
+        // Chat search functionality
+chatSearch.addEventListener('input', filterChats);
+
+    function filterChats() {
+        const searchTerm = chatSearch.value.toLowerCase();
+        // Only select buttons that are direct children of the chatHistoryPanel
+        // or are descendants but not the search input itself
+        const chatButtons = Array.from(chatHistoryPanel.querySelectorAll('button'))
+            .filter(button => button !== chatSearch); // Ensure we don't filter the search input
+    
+        chatButtons.forEach(button => {
+            const chatText = button.textContent.toLowerCase();
+            if (chatText.includes(searchTerm)) {
+                button.classList.remove('hidden');
+            } else {
+                button.classList.add('hidden');
+            }
+        });
+    }
+
+        // Modify loadChatHistory function to maintain search filtering
+        async function loadChatHistory() {
+            try {
+                const response = await fetch('/get_chats');
+                const data = await response.json();
+        
+                // Save the search input
+                const searchTerm = chatSearch.value;
+        
+                // Clear the panel except for the search input
+                const searchContainer = chatSearch.parentElement;
+                chatHistoryPanel.innerHTML = ''; // Clear everything
+                chatHistoryPanel.appendChild(searchContainer); // Add back the search container
+        
+        
+                const chats = data?.chats || [];
+                if (chats.length > 0) {
+                    chats.reverse().forEach(chat => {
+                        const date = new Date(chat.timestamp);
+                        const chatButton = document.createElement('button');
+                        chatButton.className = 'w-full text-left p-2 hover:bg-gray-100 rounded transition-colors';
+                        
+                        // Extract first user message for preview
+                        let previewText = 'Empty chat';
+                        for (const message of chat.messages) {
+                            if (message.role === 'user') {
+                                previewText = message.content;
+                                break;
+                            }
+                        }
+                
+                        chatButton.innerHTML = `
+                            <div class="font-medium">${date.toLocaleDateString()}</div>
+                            <div class="text-sm text-gray-500">${date.toLocaleTimeString()}</div>
+                            <div class="text-sm truncate">${previewText}</div>
+                        `;
+                        chatButton.addEventListener('click', () => loadChat(chat));
+                        chatHistoryPanel.appendChild(chatButton);
+                    });
+                }
+        
+        // Re-apply search filter if there was a search term
+        if (searchTerm) {
+            chatSearch.value = searchTerm;
+            filterChats();
+        }
+    } catch (error) {
+        showNotification('Failed to load chat history: ' + error.message);
+    }
+}
+
+
+
+
+
+        function loadChat(chat) {
+            chatContainer.innerHTML = '';
+            chatMessages = chat.messages;
+            currentChatId = chat.id;
+        
+            chatMessages.forEach((message, index) => {
+                if (message.role === 'sources') {
+                    const sourcesDiv = document.createElement('div');
+                    sourcesDiv.className = 'text-xs text-gray-500 mt-2 mr-12';
+                    sourcesDiv.innerHTML = message.content;
+                    chatContainer.appendChild(sourcesDiv);
+                } else {
+                    const messageWrapper = createMessageDiv(message.role, message.content, index);
+                    chatContainer.appendChild(messageWrapper);
+                }
+            });
+            
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+
+
+
+
+        loadChatHistory();
+        loadDocumentSummaries();
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = input.value.trim();
+            if (!query) return;
+
+            appendMessageWithoutSave('user', query);
+            input.value = '';
+
+            try {
+                const response = await fetch('/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        query,
+                        model: modelSelect.value 
+                    }),
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    appendMessageWithoutSave('error', data.error);
+                } else {
+                    appendMessageWithoutSave('assistant', data.response);
+                    if (data.sources) {
+                        appendSources(data.sources);
+                    }
+                    autoSaveChat();
+                }
+            } catch (error) {
+                appendMessageWithoutSave('error', 'Failed to get response');
+                autoSaveChat();
+            }
+        });
+
+        function appendSources(sources) {
+            const sourcesDiv = document.createElement('div');
+            sourcesDiv.className = 'text-xs text-gray-500 mt-2 mr-12';
+            
+            // Clean and group sources by filename and collect page numbers
+            const groupedSources = sources.reduce((acc, source) => {
+                // Remove the path prefix
+                const cleanFile = source.file.replace('/Users/newdavid/Documents/MKMChat/docs/', '');
+                
+                if (!acc[cleanFile]) {
+                    acc[cleanFile] = new Set();
+                }
+                acc[cleanFile].add(source.page);
+                return acc;
+            }, {});
+        
+            // Create the sources list
+            let sourcesList = document.createElement('ul');
+            sourcesList.className = 'list-disc pl-5 mt-1';
+            
+            sourcesDiv.innerHTML = 'Sources:';
+            
+            // Format sources list
+            const formattedSources = Object.entries(groupedSources).map(([file, pages]) => {
+                const pageNumbers = Array.from(pages).sort((a, b) => a - b);
+                return `${file} (p.${pageNumbers.join(', ')})`;
+            });
+        
+            // Add each source as a list item
+            formattedSources.forEach(sourceText => {
+                const listItem = document.createElement('li');
+                listItem.className = 'mb-1';
+                listItem.textContent = sourceText;
+                sourcesList.appendChild(listItem);
+            });
+            
+            sourcesDiv.appendChild(sourcesList);
+            chatContainer.appendChild(sourcesDiv);
+        
+            // Save to chat history in the same list format
+            chatMessages.push({ 
+                role: 'sources', 
+                content: 'Sources:\n' + formattedSources.map(src => `• ${src}`).join('\n')
+            });
+            
+            autoSaveChat();
+        }
+
+
+        function showNotification(message) {
+            notification.textContent = message;
+            notification.style.transform = 'translateY(0)';
+            setTimeout(() => {
+                notification.style.transform = 'translateY(full)';
+            }, 3000);
+        }
+
+        newChatButton.addEventListener('click', () => {
+            chatContainer.innerHTML = '';
+            chatMessages = [];
+            currentChatId = null;
+            input.value = '';
+            input.focus();
+        });
+    </script>
+</body>
+</html>
