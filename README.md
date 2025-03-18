@@ -1,4 +1,4 @@
-# Document Processing and Chat Application System
+# Physical Risk Document Processing and Chat Application System
 
 A powerful system for processing various document formats into vector embeddings and providing an interactive chat interface for querying document content using multiple AI models.
 
@@ -24,9 +24,6 @@ This system consists of two main components:
 - Supports multiple document formats:
   - PDF (.pdf)
   - EPUB (.epub)
-  - Word Documents (.doc, .docx)
-  - PowerPoint (.ppt, .pptx)
-  - Excel (.xls, .xlsx)
 - Incremental document processing
 - Progress tracking with tqdm
 - Document chunking with overlap
@@ -48,6 +45,14 @@ This system consists of two main components:
 - Chat history saving and retrieval
 - Source document tracking
 - Context-aware responses
+
+## File Size Limitations
+
+**Important Note**: GitHub imposes a 25MB file size limit that restricts the number of documents that can be processed and stored in the repository. This limitation affects the size of the FAISS index and the number of documents that can be included.
+
+For larger document collections or production use cases, please contact MKM Research Labs to purchase an extended version with support for much larger index sets:
+
+Contact: david.kelly@mkmresearchlabs.com
 
 ## System Requirements
 
@@ -161,6 +166,7 @@ python src/app.py
 ├── src/                  # Source code directory
 │   ├── pdf.py            # Document processor
 │   ├── app.py            # Flask application
+│   ├── sum.py            # Document summarizer
 │   ├── faiss_index/      # Vector store
 │   ├── templates/        # HTML templates
 │   ├── static/           # Static assets
