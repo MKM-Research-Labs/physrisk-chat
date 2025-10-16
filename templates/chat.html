@@ -1,0 +1,230 @@
+<!--
+ * Copyright (c) 2025 MKM Research Labs. All rights reserved.
+ *
+ * This software is provided under license by MKM Research Labs.
+ * Use, reproduction, distribution, or modification of this code is subject to the
+ * terms and conditions of the license agreement provided with this software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * MKM Research Document Q&A Application
+ * A modular web interface for intelligent document querying with local and cloud-based LLM support
+ *
+ * Version: 2.0
+ * Last Updated: May 2025
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKM Research Labs</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+</head>
+<body class="min-h-screen relative">
+    <!-- Background image with overlay -->
+    <div class="fixed inset-0 z-0">
+        <img src="{{ url_for('static', filename='images/background_chat.jpeg') }}" class="w-full h-full object-cover" alt="background">
+        <div class="absolute inset-0 bg-white bg-opacity-60"></div>
+    </div>
+    <div class="flex h-screen relative z-10">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-64 bg-white bg-opacity-70 shadow-lg p-4 overflow-y-auto">
+            <div class="mb-4 flex justify-between items-center">
+                <div class="flex space-x-2">
+                    <!-- Tab buttons for switching between panels -->
+                    <button id="chat-history-tab" class="tab-btn active" data-panel="chat-history-panel">Chats</button>
+                    <button id="document-summaries-tab" class="tab-btn" data-panel="document-summaries-panel">Docs</button>
+                    <button id="knowledge-base-tab" class="tab-btn" data-panel="knowledge-base-panel">KB</button>
+                </div>
+                <button id="toggle-sidebar" class="text-gray-500 hover:text-gray-700">←</button>
+            </div>
+            
+            <!-- Chat History Panel -->
+            <div id="chat-history-panel" class="panel-container">
+                <div class="mb-2">
+                    <input type="text" id="chat-search" placeholder="Search chats..." class="search-input">
+                </div>
+                <div id="chat-list" class="space-y-2">
+                    <!-- Chat history items will be populated here -->
+                    <div class="loading-placeholder"></div>
+                </div>
+            </div>
+            
+            <!-- Document Summaries Panel -->
+            <div id="document-summaries-panel" class="panel-container hidden">
+                <div class="mb-2">
+                    <input type="text" id="doc-search" placeholder="Search docs..." class="search-input">
+                </div>
+                <div id="document-list" class="space-y-2">
+                    <!-- Document list will be populated here -->
+                    <div class="loading-placeholder"></div>
+                </div>
+            </div>
+            
+            <!-- Knowledge Base Panel -->
+            <div id="knowledge-base-panel" class="panel-container hidden">
+                <div class="mb-2">
+                    <h3 class="text-lg font-medium mb-3">Knowledge Bases</h3>
+                    <p class="text-sm text-gray-600 mb-4">Select the knowledge base to use for queries:</p>
+                    <!-- Knowledge bases will be populated here -->
+                    <div id="knowledge-bases-list" class="space-y-3">
+                        <div class="loading-placeholder"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col">
+            <div class="container mx-auto px-4 py-4 flex-1 flex flex-col">
+                <div class="max-w-5xl mx-auto w-full flex-1 flex flex-col">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center space-x-3">
+                            <h1 class="text-3xl font-bold" style="font-family: Palatino, 'Palatino Linotype', 'Palatino LT STD', 'Book Antiqua', Georgia, serif;">
+                                MKM Research Labs
+                            </h1>
+                            <!-- Knowledge Base indicator -->
+                            <span id="active-kb-indicator" class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                Loading...
+                            </span>
+                        </div>
+                        <button id="new-chat" class="action-button new-chat-btn">
+                            New Chat
+                        </button>
+                    </div>
+                    
+                    <div id="chat-container" class="bg-white bg-opacity-90 rounded-lg shadow-lg p-6 mb-4 flex-1 overflow-y-auto">
+                        <!-- Chat messages will appear here -->
+                    </div>
+
+                    <form id="query-form" class="flex flex-col gap-4 mb-4">
+                        <div class="flex gap-4">
+                            <input type="text" id="query-input" class="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                   placeholder="Ask MKM ...">
+                            <select id="model-select" class="bg-white border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value="claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+                                <option value="mistral-7b-instruct-v0.2">Mistral 7B</option>
+                                <option value="cogito-v1-preview-llama-3b"> Cogito v1 3B</option>
+                                <option value="DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M">Deepseek Qwen 1.5B</option>
+                                <option value="sonar">Perplexity Sonar</option>
+                                <option value="sonar-pro">Perplexity Sonar Pro</option>
+                                <option value="sonar-reasoning">Perplexity Sonar Reasoning</option>
+                                <option value="sonar-reasoning-pro">Perplexity Sonar Reasoning Pro</option>
+                                <option value="claude-3-opus">Claude 3 Opus</option>
+                            </select>
+                            <button type="submit" class="action-button submit-btn">
+                                Send
+                            </button>
+                        </div>
+                    </form>
+                    <div class="text-center text-sm text-gray-600 pb-2">
+                        © 2025 MKM Research Labs. All rights reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary modal -->
+    <div id="summary-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title" class="text-xl font-bold">Document Summary</h3>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div id="modal-content" class="modal-body whitespace-pre-wrap">
+                <!-- Summary content goes here -->
+            </div>
+            <div class="modal-footer">
+                <div class="flex items-center">
+                    <label for="voice-select" class="text-sm mr-2">Voice:</label>
+                    <select id="voice-select" class="voice-select">
+                        <option value="UK English Female">👩 UK English Female</option>
+                        <option value="US English Female">👩 US English Female</option>
+                        <option value="UK English Male">👨 UK English Male</option>
+                        <option value="US English Male">👨 US English Male</option>
+                        <option value="Australian Female">👩 Australian Female</option>
+                        <option value="Australian Male">👨 Australian Male</option>
+                    </select>
+                </div>
+                <div class="flex">
+                    <button id="listen-summary" class="action-button listen-btn">
+                        <span id="listen-icon">🔊</span> Listen
+                    </button>
+                    <button id="copy-summary" class="action-button copy-btn">Copy</button>
+                    <button id="export-summary-pdf" class="action-button export-btn">Export PDF</button>
+                    <button id="use-summary" class="action-button use-btn">Use in Chat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Preview Modal -->
+    <div id="chat-preview-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="chat-modal-title" class="text-xl font-bold">Chat History</h3>
+                <button id="close-chat-modal" class="close-btn">&times;</button>
+            </div>
+            <div id="chat-modal-content" class="modal-body">
+                <!-- Chat content goes here -->
+            </div>
+            <div class="modal-footer">
+                <div class="flex items-center">
+                    <label for="chat-voice-select" class="text-sm mr-2">Voice:</label>
+                    <select id="chat-voice-select" class="voice-select">
+                        <option value="UK English Female">👩 UK English Female</option>
+                        <option value="US English Female">👩 US English Female</option>
+                        <option value="UK English Male">👨 UK English Male</option>
+                        <option value="US English Male">👨 US English Male</option>
+                        <option value="Australian Female">👩 Australian Female</option>
+                        <option value="Australian Male">👨 Australian Male</option>
+                    </select>
+                </div>
+                <div class="flex">
+                    <button id="listen-chat" class="action-button listen-btn">
+                        <span id="chat-listen-icon">🔊</span> Listen
+                    </button>
+                    <button id="copy-chat" class="action-button copy-btn">Copy</button>
+                    <button id="export-chat-pdf" class="action-button export-btn">Export PDF</button>
+                    <button id="load-chat" class="action-button load-btn">Load Chat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification toast -->
+    <div id="notification" class="notification">
+        Chat saved successfully!
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=eIFChWCM"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="{{ url_for('static', filename='js/utils/storage.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utils/audio.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/utils/export.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modules/modals.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modules/chat.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modules/documents.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modules/knowledge.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modules/visualizations.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

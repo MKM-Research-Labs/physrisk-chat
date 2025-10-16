@@ -1,0 +1,151 @@
+/* Main CSS file for MKM Research Labs */
+
+/* General styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  }
+  
+  /* Animation utilities */
+  .loading-placeholder {
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      background-color: rgba(200, 200, 200, 0.2);
+    }
+    50% {
+      background-color: rgba(200, 200, 200, 0.5);
+    }
+  }
+  
+  .loading-placeholder {
+    height: 40px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  
+  /* Notification toast */
+  .notification {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: rgb(34, 197, 94);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    transform: translateY(150%);
+    transition: transform 0.3s ease-out;
+    z-index: 50;
+  }
+  
+  .notification.show {
+    transform: translateY(0);
+  }
+  
+  /* Sidebar control */
+  #sidebar {
+    transition: width 0.3s ease;
+  }
+  
+  /* Panel containers */
+  .panel-container {
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+  }
+  
+  /* Tab buttons */
+  .tab-btn {
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    background-color: rgb(209, 213, 219);
+    transition: background-color 0.2s;
+  }
+  
+  .tab-btn.active {
+    background-color: rgb(59, 130, 246);
+    color: white;
+  }
+  
+  /* Search inputs */
+  .search-input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 0.5rem;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: rgb(96, 165, 250);
+  }
+  
+  /* Action buttons */
+  .action-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .new-chat-btn {
+    background-color: rgb(34, 197, 94);
+    color: white;
+  }
+  
+  .new-chat-btn:hover {
+    background-color: rgb(22, 163, 74);
+  }
+  
+  .submit-btn {
+    background-color: rgb(59, 130, 246);
+    color: white;
+  }
+  
+  .submit-btn:hover {
+    background-color: rgb(37, 99, 235);
+  }
+  
+  .listen-btn {
+    background-color: rgb(168, 85, 247);
+    color: white;
+    margin-right: 0.5rem;
+  }
+  
+  .listen-btn:hover {
+    background-color: rgb(147, 51, 234);
+  }
+  
+  .copy-btn {
+    background-color: rgb(59, 130, 246);
+    color: white;
+    margin-right: 0.5rem;
+  }
+  
+  .copy-btn:hover {
+    background-color: rgb(37, 99, 235);
+  }
+  
+  .export-btn {
+    background-color: rgb(34, 197, 94);
+    color: white;
+    margin-right: 0.5rem;
+  }
+  
+  .export-btn:hover {
+    background-color: rgb(22, 163, 74);
+  }
+  
+  .use-btn, .load-btn {
+    background-color: rgb(234, 179, 8);
+    color: white;
+  }
+  
+  .use-btn:hover, .load-btn:hover {
+    background-color: rgb(202, 138, 4);
+  }

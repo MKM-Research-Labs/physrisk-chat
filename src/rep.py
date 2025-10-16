@@ -13,13 +13,14 @@
 # SOFTWARE.
 
 
-
 def replace_terms(text: str) -> str:
     """Replace specified terms with 'MKM' and convert American spelling to British English"""
     
     # Original replacements
     replacements = [
-        "Kerr Shearer"
+        "Quant Foundry", "QF", "Quant_Foundry", "QuantFoundry",
+        "Quant.Foundry", "Quant-Foundry", "Chris Cormack",
+        "Chris.Cormack", "Kerr Shearer"
     ]
     
     # American to British spelling replacements

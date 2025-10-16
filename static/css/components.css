@@ -1,0 +1,232 @@
+/* Component-specific CSS for MKM Research Labs
+/* Chat messages */
+.message-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  
+  .message {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    white-space: pre-wrap;
+  }
+  
+  .message-user {
+    background-color: rgb(219, 234, 254);
+    margin-left: 3rem;
+  }
+  
+  .message-assistant {
+    background-color: rgb(243, 244, 246);
+    margin-right: 3rem;
+  }
+  
+  .message-error {
+    background-color: rgb(254, 226, 226);
+  }
+  
+  .message-sources {
+    font-size: 0.75rem;
+    color: rgb(107, 114, 128);
+    margin-top: 0.5rem;
+    margin-right: 3rem;
+  }
+  
+  .copy-message-btn {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background-color: rgb(59, 130, 246);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+  }
+  
+  .copy-message-btn:hover {
+    background-color: rgb(37, 99, 235);
+  }
+  
+  /* Chat history item */
+  .chat-item {
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+  }
+  
+  .chat-item:hover {
+    background-color: rgb(243, 244, 246);
+  }
+  
+  .chat-item-title {
+    font-weight: 500;
+  }
+  
+  .chat-item-time {
+    font-size: 0.75rem;
+    color: rgb(107, 114, 128);
+  }
+  
+  .chat-item-preview {
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Document item */
+  .document-item {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .document-item:hover {
+    background-color: rgb(243, 244, 246);
+  }
+  
+  .document-item-title {
+    font-weight: 500;
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .document-item-date {
+    font-size: 0.75rem;
+    color: rgb(107, 114, 128);
+  }
+  
+  /* Knowledge base item */
+  .kb-item {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  
+  .kb-item:hover {
+    background-color: rgb(243, 244, 246);
+  }
+  
+  .kb-item-active {
+    background-color: rgb(219, 234, 254);
+    border-color: rgb(96, 165, 250);
+  }
+  
+  .kb-item-name {
+    font-weight: 500;
+  }
+  
+  .kb-item-key {
+    font-size: 0.75rem;
+    color: rgb(107, 114, 128);
+  }
+  
+  .kb-item-active-badge {
+    color: rgb(29, 78, 216);
+  }
+  
+  /* Voice selection */
+  .voice-select {
+    font-size: 0.875rem;
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+  }
+  
+  .voice-select:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: rgb(96, 165, 250);
+  }
+
+  /* Visualization button */
+  .visualize-btn {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .message-wrapper:hover .visualize-btn {
+    opacity: 1;
+  }
+
+  /* Visualization container */
+  #query-visualization-container {
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  /* Visualization tabs */
+  .viz-tab {
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .viz-tab.active {
+    font-weight: 500;
+  }
+
+  .viz-tab:hover:not(.active) {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+
+  /* Visualization panels */
+  .viz-panel {
+    transition: opacity 0.3s ease;
+  }
+
+  /* Keyword cloud */
+  #keyword-cloud > div {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  #keyword-cloud > div:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Chart containers */
+  .chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+  }
+
+  /* Loading indicator for charts */
+  .chart-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  .chart-loading::after {
+    content: "";
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 0.25rem solid rgb(59, 130, 246);
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
