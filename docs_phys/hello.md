@@ -12,14 +12,5 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from setuptools import setup, find_packages
 
-setup(
-    name="document_processor",
-    version="0.1.0",
-    packages=find_packages(),
-    description="Document processing for vector embeddings",
-    author="MKM Research Labs",
-    author_email="example@example.com",
-    python_requires=">=3.6",
-)
+# Please place your documents for processing, then run pdf.py and sum.py

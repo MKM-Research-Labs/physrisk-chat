@@ -1,0 +1,141 @@
+/**
+ * MKM Research Labs - Loading Indicator
+ * 
+ * Copyright (c) 2025 MKM Research Labs. All rights reserved.
+ * 
+ * Animated hourglass loader for query responses
+ */
+
+/* Loader container */
+.loader-container {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-container.active {
+  display: flex;
+}
+
+/* Hourglass animation */
+.hourglass-loader {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  animation: hourglass-rotate 2s ease-in-out infinite;
+}
+
+.hourglass-loader::before,
+.hourglass-loader::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Top half of hourglass */
+.hourglass-loader::before {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 30px 20px 0 20px;
+  border-color: rgb(59, 130, 246) transparent transparent transparent;
+  animation: sand-drain-top 2s ease-in-out infinite;
+}
+
+/* Bottom half of hourglass */
+.hourglass-loader::after {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 20px 30px 20px;
+  border-color: transparent transparent rgb(59, 130, 246) transparent;
+  animation: sand-fill-bottom 2s ease-in-out infinite;
+}
+
+/* Loading text */
+.loader-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: rgb(75, 85, 99);
+  font-weight: 500;
+  animation: pulse-text 1.5s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes hourglass-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  50.01% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes sand-drain-top {
+  0% {
+    border-width: 30px 20px 0 20px;
+  }
+  50% {
+    border-width: 0px 20px 0 20px;
+  }
+  100% {
+    border-width: 0px 20px 0 20px;
+  }
+}
+
+@keyframes sand-fill-bottom {
+  0% {
+    border-width: 0 20px 0px 20px;
+  }
+  50% {
+    border-width: 0 20px 30px 20px;
+  }
+  100% {
+    border-width: 0 20px 30px 20px;
+  }
+}
+
+@keyframes pulse-text {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Make chat container position relative for absolute positioning of loader */
+#chat-container {
+  position: relative;
+}
+
+/* Optional: dim the background slightly when loading */
+.chat-container-loading {
+  pointer-events: none;
+}
+
+.chat-container-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: 5;
+  border-radius: 0.5rem;
+}

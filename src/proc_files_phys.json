@@ -876,8 +876,8 @@
     "status": "SUCCESS"
   },
   "Statistical Methods in the Atmospheric Sciences (Daniel S. Wilks (Eds.)).pdf": {
-    "hash": "1739123095.0407097",
-    "processed_date": "2025-07-17T12:36:09.417571",
+    "hash": "1761119323.9258587",
+    "processed_date": "2025-10-22T08:51:41.529882",
     "num_chunks": 589,
     "status": "SUCCESS"
   },
@@ -3981,6 +3981,330 @@
     "hash": "1760514021.3205826",
     "processed_date": "2025-10-15T08:47:59.538031",
     "num_chunks": 171,
+    "status": "SUCCESS"
+  },
+  "Climate Stress Testing Methodologies.pdf": {
+    "hash": "1760530554.0",
+    "processed_date": "2025-10-17T11:07:53.851715",
+    "num_chunks": 118,
+    "status": "SUCCESS"
+  },
+  "Climate Stress Testing Case Studies and Practical Examples.pdf": {
+    "hash": "1760530554.0",
+    "processed_date": "2025-10-17T11:07:54.100234",
+    "num_chunks": 30,
+    "status": "SUCCESS"
+  },
+  "Climate Stress TestingSurvey Findings.pdf": {
+    "hash": "1760530554.0",
+    "processed_date": "2025-10-17T11:07:54.264551",
+    "num_chunks": 20,
+    "status": "SUCCESS"
+  },
+  "FSB Transition Paths.pdf": {
+    "hash": "1760696539.1945581",
+    "processed_date": "2025-10-17T11:34:57.591774",
+    "num_chunks": 57,
+    "status": "SUCCESS"
+  },
+  "Climate Stress Testing Methodologies ch3.pdf": {
+    "hash": "1760696656.2539532",
+    "processed_date": "2025-10-17T11:34:57.676442",
+    "num_chunks": 9,
+    "status": "SUCCESS"
+  },
+  "using-model-risk-management-to-address-climate-analytics-its-a-process-not-a-task-vf.pdf": {
+    "hash": "1760697188.9901204",
+    "processed_date": "2025-10-17T11:34:58.016309",
+    "num_chunks": 12,
+    "status": "SUCCESS"
+  },
+  "NGFS_scenarios.pdf": {
+    "hash": "1760696728.6894474",
+    "processed_date": "2025-10-17T11:34:58.476781",
+    "num_chunks": 53,
+    "status": "SUCCESS"
+  },
+  "PDF challenges of climate risk.pdf": {
+    "hash": "1760697104.6687973",
+    "processed_date": "2025-10-17T11:34:58.681362",
+    "num_chunks": 18,
+    "status": "SUCCESS"
+  },
+  "A-Conceptual-Framework-for-Climate-Scenario-Analysis-in-the-Trading-Book.pdf": {
+    "hash": "1760697001.0432816",
+    "processed_date": "2025-10-17T11:34:59.801335",
+    "num_chunks": 52,
+    "status": "SUCCESS"
+  },
+  "FSB Climate Vulnerabilities.pdf": {
+    "hash": "1760697132.2724352",
+    "processed_date": "2025-10-17T11:35:00.943727",
+    "num_chunks": 59,
+    "status": "SUCCESS"
+  },
+  "FSB Climate Stress Testing.pdf": {
+    "hash": "1760696473.2406614",
+    "processed_date": "2025-10-17T11:35:02.117252",
+    "num_chunks": 59,
+    "status": "SUCCESS"
+  },
+  "FSB Climate Financial Risks.pdf": {
+    "hash": "1760696509.3119721",
+    "processed_date": "2025-10-17T11:35:02.627296",
+    "num_chunks": 45,
+    "status": "SUCCESS"
+  },
+  "PwC_Model_Risk_Management_Survey_April_2022_Report_Final.pdf": {
+    "hash": "1760696973.514642",
+    "processed_date": "2025-10-17T11:35:03.069232",
+    "num_chunks": 15,
+    "status": "SUCCESS"
+  },
+  "Climate-Risk-Scenario-Analysis-for-the-Trading-Book-Phase-III.pdf": {
+    "hash": "1760697608.488387",
+    "processed_date": "2025-10-18T09:57:10.454104",
+    "num_chunks": 42,
+    "status": "SUCCESS"
+  },
+  "Jupiter_Private_Equity_eBook_May2024_Optimized.pdf": {
+    "hash": "1760947864.2738254",
+    "processed_date": "2025-10-20T09:58:29.376715",
+    "num_chunks": 9,
+    "status": "SUCCESS"
+  },
+  "The_Climate_Bubble_Unveiling_Hidden_Risks_in_the_U.S._Hous.pdf": {
+    "hash": "1760947835.0434153",
+    "processed_date": "2025-10-20T09:58:37.245466",
+    "num_chunks": 20,
+    "status": "SUCCESS"
+  },
+  "Risk to Adaptation Jupiter Intelligence.pdf": {
+    "hash": "1760947730.0495985",
+    "processed_date": "2025-10-20T09:58:37.630858",
+    "num_chunks": 9,
+    "status": "SUCCESS"
+  },
+  "Asset Management Use Cases Jupiter Intelligence.pdf": {
+    "hash": "1760947762.4749186",
+    "processed_date": "2025-10-20T09:58:37.665465",
+    "num_chunks": 2,
+    "status": "SUCCESS"
+  },
+  "ClimateScore Global Datasheet_June_2025.pdf": {
+    "hash": "1760947791.1225004",
+    "processed_date": "2025-10-20T09:58:37.720315",
+    "num_chunks": 3,
+    "status": "SUCCESS"
+  },
+  "Updated Research on Physical Risk in the Financial.pdf": {
+    "hash": "1760534039.6549084",
+    "processed_date": "2025-10-20T09:58:38.029999",
+    "num_chunks": 8,
+    "status": "SUCCESS"
+  },
+  "GeoAI Artificial Intelligence in GIS (Ismael Chivite, Nicolas Giner, Matt Artz (eds.)).pdf": {
+    "hash": "1760955175.0874858",
+    "processed_date": "2025-10-20T11:17:33.133413",
+    "num_chunks": 146,
+    "status": "SUCCESS"
+  },
+  "QGIS for Land Surveyors and Civil Designers (Huizinga A.).pdf": {
+    "hash": "1760955209.8148115",
+    "processed_date": "2025-10-20T11:17:36.031730",
+    "num_chunks": 238,
+    "status": "SUCCESS"
+  },
+  "Introduction to LiDAR Remote Sensing (Cheng Wang, Xuebo Yang, Xiaohuan Xi, Sheng Nie etc.).pdf": {
+    "hash": "1760955150.798957",
+    "processed_date": "2025-10-20T11:17:40.265825",
+    "num_chunks": 318,
+    "status": "SUCCESS"
+  },
+  "Computational Methods and GIS Applications in Social Science - Lab Manual (Lingbo Liu, Fahui Wang).pdf": {
+    "hash": "1760955227.645025",
+    "processed_date": "2025-10-20T11:17:44.470551",
+    "num_chunks": 323,
+    "status": "SUCCESS"
+  },
+  "Managing Our World GIS for Natural Resources (Geoff Wade, Matt Artz).epub": {
+    "hash": "1760955228.7367647",
+    "processed_date": "2025-10-20T11:17:44.622963",
+    "num_chunks": 105,
+    "status": "SUCCESS"
+  },
+  "NOAA Coastal Services Center. Lidar 101 An Introduction to Lidar Technology, Data, and Applications (Jamie Carter, Keil Schmid, Kirk Waters etc.).pdf": {
+    "hash": "1760955118.2226026",
+    "processed_date": "2025-10-20T11:17:46.941570",
+    "num_chunks": 82,
+    "status": "SUCCESS"
+  },
+  "Lidar Engineering Introduction to Basic Principles (Gary G. Gimmestad, David W. Roberts).pdf": {
+    "hash": "1760955131.8520548",
+    "processed_date": "2025-10-20T11:17:52.123481",
+    "num_chunks": 431,
+    "status": "SUCCESS"
+  },
+  "chat-can_you_expand_on_the_backgrou.pdf": {
+    "hash": "1761057722.8358035",
+    "processed_date": "2025-10-21T16:45:26.177019",
+    "num_chunks": 5,
+    "status": "SUCCESS"
+  },
+  "An Introduction to Computational Fluid Mechanics by Example (Sedat Biringen, Chuen-Yen Chow).pdf": {
+    "hash": "1761061411.6144161",
+    "processed_date": "2025-10-21T16:45:30.081512",
+    "num_chunks": 329,
+    "status": "SUCCESS"
+  },
+  "Fluid Mechanics (J. F. Douglas, J. M. Gasoriek, John Swaffield etc.).pdf": {
+    "hash": "1761061388.4736",
+    "processed_date": "2025-10-21T16:45:56.772625",
+    "num_chunks": 1122,
+    "status": "SUCCESS"
+  },
+  "Compressible Fluid Flow (Michel A. Saad).pdf": {
+    "hash": "1761061402.6169372",
+    "processed_date": "2025-10-21T16:45:56.956081",
+    "num_chunks": 289,
+    "status": "SUCCESS"
+  },
+  "Generative AI for growth hacking How startups use generative AI in their growth strategies (Arash Rezazadeh).pdf": {
+    "hash": "1761042157.6819987",
+    "processed_date": "2025-10-21T16:45:57.436090",
+    "num_chunks": 46,
+    "status": "SUCCESS"
+  },
+  "Optimizing generative AI by backpropagating language model feedback ( etc.).pdf": {
+    "hash": "1761042184.3544424",
+    "processed_date": "2025-10-21T16:45:58.298124",
+    "num_chunks": 37,
+    "status": "SUCCESS"
+  },
+  "A valley renewed  the history of the Muskingum Watershed Conservancy District (Jenkins, Hal).pdf": {
+    "hash": "1761061352.9759564",
+    "processed_date": "2025-10-21T16:46:21.046018",
+    "num_chunks": 248,
+    "status": "SUCCESS"
+  },
+  "Climate Change Global Risks, Challenges and Decisions (Katherine Richardson, Will Steffen etc.).pdf": {
+    "hash": "1761119354.9762082",
+    "processed_date": "2025-10-22T08:51:37.604212",
+    "num_chunks": 830,
+    "status": "SUCCESS"
+  },
+  "United Nations Environment Program.pdf": {
+    "hash": "1760702978.483298",
+    "processed_date": "2025-10-22T08:51:43.742488",
+    "num_chunks": 46,
+    "status": "SUCCESS"
+  },
+  "Weather Forecasting Explained An Easy Reference Guide (Englands Living History) (Countryside Books Reference) (Stan Yorke).pdf": {
+    "hash": "1761119235.4110909",
+    "processed_date": "2025-10-22T08:51:44.056793",
+    "num_chunks": 68,
+    "status": "SUCCESS"
+  },
+  "Weather by the numbers the genesis of modern meteorology (Kristine C. Harper).pdf": {
+    "hash": "1761119270.0360737",
+    "processed_date": "2025-10-22T08:51:45.049207",
+    "num_chunks": 338,
+    "status": "SUCCESS"
+  },
+  "Attribution of Extreme Weather Events in the Context of Climate Change (coll.).pdf": {
+    "hash": "1761119353.49177",
+    "processed_date": "2025-10-22T08:51:46.711827",
+    "num_chunks": 252,
+    "status": "SUCCESS"
+  },
+  "Meteorology at the Millennium (R.P. Pearce (Eds.)).pdf": {
+    "hash": "1761119295.448803",
+    "processed_date": "2025-10-22T08:52:22.174313",
+    "num_chunks": 611,
+    "status": "SUCCESS"
+  },
+  "Understanding Climate Change A Practical Guide (Frank R. Spellman).pdf": {
+    "hash": "1761119333.7077944",
+    "processed_date": "2025-10-22T08:52:23.116114",
+    "num_chunks": 195,
+    "status": "SUCCESS"
+  },
+  "Wind Energy Meteorology (Stefan Emeis).pdf": {
+    "hash": "1761119341.8514235",
+    "processed_date": "2025-10-22T08:52:25.825427",
+    "num_chunks": 326,
+    "status": "SUCCESS"
+  },
+  "Weather Forecasting Handbook (5th Edition) (Tim Vasquez).pdf": {
+    "hash": "1761119267.6552444",
+    "processed_date": "2025-10-22T08:52:25.941495",
+    "num_chunks": 194,
+    "status": "SUCCESS"
+  },
+  "Greening the Financial Sector (Doris K\u00f6hn).pdf": {
+    "hash": "1761659099.8207858",
+    "processed_date": "2025-10-28T13:57:36.961050",
+    "num_chunks": 367,
+    "status": "SUCCESS"
+  },
+  "Designing Green Networks and Network Operations Reducing Enterprises and Carriers Carbon Footprint and Saving Run-the-Engine\u2026 (Daniel Minoli).pdf": {
+    "hash": "1761659138.9070766",
+    "processed_date": "2025-10-28T13:57:44.504152",
+    "num_chunks": 486,
+    "status": "SUCCESS"
+  },
+  "Global Financial Networked Governance The Power of the Financial Stability Board and its Limits (Peter Knaack).pdf": {
+    "hash": "1761659182.7861416",
+    "processed_date": "2025-10-28T13:57:46.547208",
+    "num_chunks": 380,
+    "status": "SUCCESS"
+  },
+  "Building a More Resilient Financial Sector Reforms in the Wake of the Global Crisis (Aditya Narain Inci \u00d6tker Ceyla Pazarbasioglu).epub": {
+    "hash": "1761659641.2045898",
+    "processed_date": "2025-10-28T13:57:46.960249",
+    "num_chunks": 354,
+    "status": "SUCCESS"
+  },
+  "Green Bonds and the Role of the Financial Sector in Tackling Global Climate Change (Kila, Kikelomo).pdf": {
+    "hash": "1761659275.5167348",
+    "processed_date": "2025-10-28T13:57:47.398413",
+    "num_chunks": 28,
+    "status": "SUCCESS"
+  },
+  "RMS Jupiter and NGFS.pdf": {
+    "hash": "1761661371.8133626",
+    "processed_date": "2025-10-30T16:49:58.477496",
+    "num_chunks": 62,
+    "status": "SUCCESS"
+  },
+  "Food Price Volatility and Its Implications for Food Security and Policy (Matthias Kalkuhl, Joachim von Braun etc.).pdf": {
+    "hash": "1761660085.0192616",
+    "processed_date": "2025-10-30T16:50:22.945388",
+    "num_chunks": 861,
+    "status": "SUCCESS"
+  },
+  "Machine Learning for Engineers Introduction to Physics-Informed, Explainable Learning Methods for AI in Engineering\u2026 (Marcus Neuer).pdf": {
+    "hash": "1762099106.6715899",
+    "processed_date": "2025-11-02T16:11:59.221535",
+    "num_chunks": 256,
+    "status": "SUCCESS"
+  },
+  "Physics for Scientists and Engineers A Strategic Approach with Modern Physics (2nd Edition) (Randall D. Knight).pdf": {
+    "hash": "1762099182.5942204",
+    "processed_date": "2025-11-02T16:12:02.293681",
+    "num_chunks": 1450,
+    "status": "SUCCESS"
+  },
+  "Physics for Scientists and Engineers Foundations and Connections, Extended Version with Modern Physics (Debora M. Katz).pdf": {
+    "hash": "1762099174.6501062",
+    "processed_date": "2025-11-02T16:14:47.443211",
+    "num_chunks": 2784,
+    "status": "SUCCESS"
+  },
+  "Thinking About Equations A Practical Guide for Developing Mathematical Intuition in the Physical Sciences and Engineering (Matt A. Bernstein, William A. Friedman).pdf": {
+    "hash": "1762099088.212604",
+    "processed_date": "2025-11-02T16:14:50.580509",
+    "num_chunks": 284,
     "status": "SUCCESS"
   }
 }

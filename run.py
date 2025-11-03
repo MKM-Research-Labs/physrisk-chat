@@ -22,13 +22,13 @@ def parse_arguments():
     )
     
     # Mode selection
-    parser.add_argument('--web-only', action='store_true',
+    parser.add_argument('-web-only', action='store_true',
                        help='Skip all processing and go directly to web interface')
-    parser.add_argument('--process-only', action='store_true',
+    parser.add_argument('-process-only', action='store_true',
                        help='Only process documents without starting web interface')
-    parser.add_argument('--summarize-only', action='store_true',
+    parser.add_argument('-summarize-only', action='store_true',
                        help='Only run summarization without document processing or web interface')
-    parser.add_argument('--list-summaries', action='store_true',
+    parser.add_argument('-list-summaries', action='store_true',
                        help='List all summarized documents without processing')
     
     # Web server options

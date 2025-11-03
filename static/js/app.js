@@ -55,6 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize audio preferences
     AudioUtils.initVoicePreferences();
+    
+    // Initialize loading indicator
+    if (typeof LoaderUtils !== 'undefined') {
+      LoaderUtils.init();
+      console.log('✓ Loading indicator initialized');
+    } else {
+      console.warn('LoaderUtils not found - loading indicator disabled');
+    }
   }
   
   /**

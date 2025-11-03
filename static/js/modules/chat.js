@@ -22,6 +22,27 @@ const ChatManager = (() => {
   let currentChatId = null;
   
   /**
+   * Get custom loading message based on selected model
+   * @param {string} model - Selected model
+   * @returns {string} - Loading message
+   */
+  const getLoadingMessage = (model) => {
+    const messages = {
+      'claude-3.5-sonnet': 'Consulting Claude AI...',
+      'mistral-7b-instruct-v0.2': 'Processing with Mistral...',
+      'cogito-v1-preview-llama-3b': 'Analyzing with Cogito...',
+      'DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M': 'Thinking deeply...',
+      'sonar': 'Searching with Perplexity...',
+      'sonar-pro': 'Deep search in progress...',
+      'sonar-reasoning': 'Reasoning through your query...',
+      'sonar-reasoning-pro': 'Advanced reasoning in progress...',
+      'claude-3-opus': 'Consulting Claude Opus...'
+    };
+    
+    return messages[model] || 'Processing your query...';
+  };
+  
+  /**
    * Initialize chat form submission
    */
   const initChatForm = () => {
@@ -60,9 +81,21 @@ const ChatManager = (() => {
       appendMessage('user', query);
       input.value = '';
       
+      // Get the selected model for custom loading message
+      const selectedModel = modelSelect.value;
+      
+      // ✅ SHOW LOADER - with model-specific message
+      if (typeof LoaderUtils !== 'undefined') {
+        LoaderUtils.show(getLoadingMessage(selectedModel));
+      }
+      
       try {
-        const selectedModel = modelSelect.value;
         const response = await ApiService.sendQuery(query, selectedModel);
+        
+        // ✅ HIDE LOADER - after receiving response
+        if (typeof LoaderUtils !== 'undefined') {
+          LoaderUtils.hide();
+        }
         
         if (response.error) {
           appendMessage('error', response.error);
@@ -77,6 +110,11 @@ const ChatManager = (() => {
         // Auto-save after each interaction
         autoSaveChat();
       } catch (error) {
+        // ✅ HIDE LOADER - on error
+        if (typeof LoaderUtils !== 'undefined') {
+          LoaderUtils.hide();
+        }
+        
         console.error('Query error:', error);
         appendMessage('error', 'Failed to get response: ' + error.message);
         autoSaveChat();
