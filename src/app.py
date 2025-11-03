@@ -75,9 +75,9 @@ class DocumentQAApp:
     """Main application class for the Document Q&A system"""
     
     def __init__(self):
-        # API Keys
-        self.ANTHROPIC_API_KEY = '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'
-        self.PERPLEXITY_API_KEY = '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'
+        # API Keys - user needs to define own API Keys
+        self.ANTHROPIC_API_KEY = ''
+        self.PERPLEXITY_API_KEY = ''
         
         # API URLs
         self.PERPLEXITY_API_URL = "https://api.perplexity.ai/chat/completions"
